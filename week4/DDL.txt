@@ -1,0 +1,161 @@
+
+CREATE TABLE alerts
+(
+    alerts_id BIGINT AUTO_INCREMENT NOT NULL,
+    alerts    VARCHAR(255)          NOT NULL,
+    CONSTRAINT pk_alerts PRIMARY KEY (alerts_id)
+);
+
+CREATE TABLE cuisine
+(
+    food_id  BIGINT AUTO_INCREMENT NOT NULL,
+    cuisines VARCHAR(255)          NOT NULL,
+    CONSTRAINT pk_cuisine PRIMARY KEY (food_id)
+);
+
+CREATE TABLE location
+(
+    local_id BIGINT AUTO_INCREMENT NOT NULL,
+    local    VARCHAR(255)          NOT NULL,
+    CONSTRAINT pk_location PRIMARY KEY (local_id)
+);
+
+CREATE TABLE member
+(
+    member_id      BIGINT AUTO_INCREMENT NOT NULL,
+    name           VARCHAR(255)          NOT NULL,
+    gender         VARCHAR(255)          NOT NULL,
+    birthdate      datetime              NOT NULL,
+    adress         VARCHAR(255)          NOT NULL,
+    detail_address VARCHAR(255)          NOT NULL,
+    phone          VARCHAR(255)          NOT NULL,
+    point          INT                   NULL,
+    email          VARCHAR(255)          NOT NULL,
+    status         VARCHAR(255)          NULL,
+    vaildate       datetime              NULL,
+    CONSTRAINT pk_member PRIMARY KEY (member_id)
+);
+
+CREATE TABLE member_alert
+(
+    member_alert_id BIGINT AUTO_INCREMENT NOT NULL,
+    created_at      datetime              NULL,
+    watched         BIT(1)                NOT NULL,
+    member_id       BIGINT                NULL,
+    alerts_id       BIGINT                NULL,
+    CONSTRAINT pk_member_alert PRIMARY KEY (member_alert_id)
+);
+
+CREATE TABLE member_mission
+(
+    member_mission_id BIGINT AUTO_INCREMENT NOT NULL,
+    is_success        VARCHAR(255)          NULL,
+    success_date      date                  NULL,
+    mission_id        BIGINT                NULL,
+    member_id         BIGINT                NULL,
+    CONSTRAINT pk_member_mission PRIMARY KEY (member_mission_id)
+);
+
+CREATE TABLE member_preference_food
+(
+    user_food_id BIGINT AUTO_INCREMENT NOT NULL,
+    food_id      BIGINT                NULL,
+    member_id    BIGINT                NULL,
+    CONSTRAINT pk_member_preference_food PRIMARY KEY (user_food_id)
+);
+
+CREATE TABLE member_promise
+(
+    member_promise_id BIGINT AUTO_INCREMENT NOT NULL,
+    agree             BIT(1)                NOT NULL,
+    promise_id        BIGINT                NULL,
+    member_id         BIGINT                NULL,
+    CONSTRAINT pk_member_promise PRIMARY KEY (member_promise_id)
+);
+
+CREATE TABLE mission
+(
+    mission_id    BIGINT AUTO_INCREMENT NOT NULL,
+    valid_date    date                  NULL,
+    give_point    INT                   NULL,
+    pay           INT                   NOT NULL,
+    restaurant_id BIGINT                NULL,
+    CONSTRAINT pk_mission PRIMARY KEY (mission_id)
+);
+
+CREATE TABLE promise
+(
+    promise_id BIGINT AUTO_INCREMENT NOT NULL,
+    promise    VARCHAR(255)          NOT NULL,
+    CONSTRAINT pk_promise PRIMARY KEY (promise_id)
+);
+
+CREATE TABLE restourant
+(
+    restaurant_id     BIGINT AUTO_INCREMENT NOT NULL,
+    restaurant_name   VARCHAR(255)          NOT NULL,
+    restaurant_adress VARCHAR(255)          NOT NULL,
+    local_id          BIGINT                NULL,
+    CONSTRAINT pk_restourant PRIMARY KEY (restaurant_id)
+);
+
+CREATE TABLE review
+(
+    review_id     BIGINT AUTO_INCREMENT NOT NULL,
+    content       VARCHAR(255)          NULL,
+    created_at    datetime              NULL,
+    star          FLOAT                 NOT NULL,
+    restaurant_id BIGINT                NULL,
+    member_id     BIGINT                NULL,
+    CONSTRAINT pk_review PRIMARY KEY (review_id)
+);
+
+CREATE TABLE review_comment
+(
+    response_id BIGINT AUTO_INCREMENT NOT NULL,
+    content     VARCHAR(255)          NULL,
+    review_id   BIGINT                NULL,
+    CONSTRAINT pk_review_comment PRIMARY KEY (response_id)
+);
+
+ALTER TABLE restourant
+    ADD CONSTRAINT uc_restourant_local UNIQUE (local_id);
+
+ALTER TABLE member_alert
+    ADD CONSTRAINT FK_MEMBER_ALERT_ON_ALERTS FOREIGN KEY (alerts_id) REFERENCES alerts (alerts_id);
+
+ALTER TABLE member_alert
+    ADD CONSTRAINT FK_MEMBER_ALERT_ON_MEMBER FOREIGN KEY (member_id) REFERENCES member (member_id);
+
+ALTER TABLE member_mission
+    ADD CONSTRAINT FK_MEMBER_MISSION_ON_MEMBER FOREIGN KEY (member_id) REFERENCES member (member_id);
+
+ALTER TABLE member_mission
+    ADD CONSTRAINT FK_MEMBER_MISSION_ON_MISSION FOREIGN KEY (mission_id) REFERENCES mission (mission_id);
+
+ALTER TABLE member_preference_food
+    ADD CONSTRAINT FK_MEMBER_PREFERENCE_FOOD_ON_FOOD FOREIGN KEY (food_id) REFERENCES cuisine (food_id);
+
+ALTER TABLE member_preference_food
+    ADD CONSTRAINT FK_MEMBER_PREFERENCE_FOOD_ON_MEMBER FOREIGN KEY (member_id) REFERENCES member (member_id);
+
+ALTER TABLE member_promise
+    ADD CONSTRAINT FK_MEMBER_PROMISE_ON_MEMBER FOREIGN KEY (member_id) REFERENCES member (member_id);
+
+ALTER TABLE member_promise
+    ADD CONSTRAINT FK_MEMBER_PROMISE_ON_PROMISE FOREIGN KEY (promise_id) REFERENCES promise (promise_id);
+
+ALTER TABLE mission
+    ADD CONSTRAINT FK_MISSION_ON_RESTAURANT FOREIGN KEY (restaurant_id) REFERENCES restourant (restaurant_id);
+
+ALTER TABLE restourant
+    ADD CONSTRAINT FK_RESTOURANT_ON_LOCAL FOREIGN KEY (local_id) REFERENCES location (local_id);
+
+ALTER TABLE review_comment
+    ADD CONSTRAINT FK_REVIEW_COMMENT_ON_REVIEW FOREIGN KEY (review_id) REFERENCES review (review_id);
+
+ALTER TABLE review
+    ADD CONSTRAINT FK_REVIEW_ON_MEMBER FOREIGN KEY (member_id) REFERENCES member (member_id);
+
+ALTER TABLE review
+    ADD CONSTRAINT FK_REVIEW_ON_RESTAURANT FOREIGN KEY (restaurant_id) REFERENCES restourant (restaurant_id);
