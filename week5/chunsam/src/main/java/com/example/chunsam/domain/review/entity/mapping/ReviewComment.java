@@ -1,6 +1,7 @@
 package com.example.chunsam.domain.review.entity.mapping;
 
 import com.example.chunsam.domain.review.entity.Review;
+import com.example.chunsam.global.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -8,7 +9,7 @@ import lombok.*;
 @Getter @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class ReviewComment {
+public class ReviewComment extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

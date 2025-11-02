@@ -15,7 +15,7 @@ public class MemberPreferenceFood {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_food_id")   // PK
-    private Long userFoodId;
+    private Long id;
 
 
     @ManyToOne(fetch = FetchType.LAZY)

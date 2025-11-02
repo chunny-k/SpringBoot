@@ -2,6 +2,7 @@ package com.example.chunsam.domain.mission.controller;
 
 
 import com.example.chunsam.domain.mission.dto.LocalMissionOfferResponse;
+import com.example.chunsam.domain.mission.enums.MissionStatus;
 import com.example.chunsam.domain.mission.repo.MissionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
@@ -23,7 +24,7 @@ public class MissionController {
     @GetMapping("/area/{localId}/member/{memberId}")
     public List<LocalMissionOfferResponse> getOffers(@PathVariable("localId") Long localId, @PathVariable("memberId") Long memberId) {
         PageRequest pageRequest = PageRequest.of(0, 5);
-        return missionRepository.findMissionOffersByLocationId(localId, memberId,pageRequest).getContent();
+        return missionRepository.findMissionOffersByLocationId(localId, memberId, MissionStatus.BEFORE ,pageRequest).getContent();
     }
 }
 

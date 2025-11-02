@@ -17,7 +17,7 @@ public class MemberAlert {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "member_alert_id")
-    private Long memberAlertId;   // 단일 PK
+    private Long id;   // 단일 PK
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;

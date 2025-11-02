@@ -15,7 +15,7 @@ public class Cuisine {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Id;
+    private Long id;
 
 
     @OneToMany(mappedBy = "cuisine")

@@ -16,7 +16,7 @@ public class MemberPromise {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "member_promise_id")        // ERD의 '유저약관ID promiseId' (PK)
-    private Long memberPromiseId;      // 자바 필드명만 구분
+    private Long id;      // 자바 필드명만 구분
 
     @Column(name = "agree", nullable = false)
     private Boolean agree;
