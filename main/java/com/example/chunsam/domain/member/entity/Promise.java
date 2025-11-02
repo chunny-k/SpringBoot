@@ -11,7 +11,7 @@ public class Promise {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "promise_id")
-    private Long promiseId;
+    private Long id;
 
     @Column(name = "promise", nullable = false)
     private String promise;

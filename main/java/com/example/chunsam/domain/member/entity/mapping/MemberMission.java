@@ -16,7 +16,7 @@ public class MemberMission {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "member_mission_id")
-    private Long userMissionId;
+    private Long id;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "is_success")

@@ -21,7 +21,7 @@ public class Alerts extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "alerts_id")
-    private Long alertId;
+    private Long id;
 
     @Column(name = "alerts", nullable = false)
     private String alert;
