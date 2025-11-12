@@ -33,4 +33,6 @@ public class ReviewOfferResponse {
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
+
+
 }
