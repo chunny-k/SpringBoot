@@ -19,7 +19,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ReviewQueryDslImpl implements ReviewQueryDsl {
 
-    private final ReviewRepository reviewRepository;
     private final EntityManager em;
     private final ReviewProjectMapper mapper; // 컨버터 패턴을 사용. 정보 가공 해주는 기능 분리
 
