@@ -6,14 +6,21 @@ import com.example.chunsam.domain.member.repo.MemberRepository;
 import com.example.chunsam.domain.review.Exception.ReviewException;
 import com.example.chunsam.domain.review.Exception.code.ReviewErrorCode;
 import com.example.chunsam.domain.review.converter.ReviewConverter;
+import com.example.chunsam.domain.review.dto.ReviewOfferListResponse;
 import com.example.chunsam.domain.review.dto.req.ReviewCreateReq;
+import com.example.chunsam.domain.review.dto.req.ReviewGetReq;
 import com.example.chunsam.domain.review.dto.res.ReviewCreateRes;
+import com.example.chunsam.domain.review.dto.res.ReviewPageRes;
 import com.example.chunsam.domain.review.entity.Review;
 import com.example.chunsam.domain.review.repo.ReviewRepository;
 import com.example.chunsam.domain.store.entity.Restourant;
 import com.example.chunsam.domain.store.repo.RestourantRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -41,6 +48,19 @@ public class ReviewService {
         }
 
         return new ReviewCreateRes(true);
+    }
+
+    public ReviewPageRes GetReviewsByMemberId(ReviewGetReq.ReviewGetByMeberIdReq req, int page) {
+
+        int pageIndex = page - 1;
+        PageRequest pageable = PageRequest.of(pageIndex, 10);
+
+        Page<Review> reviewList = reviewRepository.findByMemberIdWithFetchJoin(req.getMemberId(),pageable);
+
+
+        return ReviewConverter.toPageResponse(reviewList);
+
+
     }
 
 

@@ -2,9 +2,16 @@ package com.example.chunsam.domain.review.converter;
 
 
 import com.example.chunsam.domain.member.entity.Member;
+import com.example.chunsam.domain.review.dto.ReviewOfferListResponse;
+import com.example.chunsam.domain.review.dto.ReviewOfferResponse;
 import com.example.chunsam.domain.review.dto.req.ReviewCreateReq;
+import com.example.chunsam.domain.review.dto.res.ReviewPageRes;
 import com.example.chunsam.domain.review.entity.Review;
 import com.example.chunsam.domain.store.entity.Restourant;
+import com.example.chunsam.global.PageInfo;
+import org.springframework.data.domain.Page;
+
+import java.util.List;
 
 public class ReviewConverter {
 
@@ -18,5 +25,51 @@ public class ReviewConverter {
                 .star(req.star())
                 .content(req.content())
                 .build();
+    }
+
+
+    public static ReviewOfferResponse toResponse(Review r) {
+        return ReviewOfferResponse.builder()
+                .restaurantName(r.getRestourant().getRestaurantName())
+                .name(r.getMember().getName())
+                .star(r.getStar())
+                .content(r.getContent())
+                .createdAt(r.getCreateAt())
+                .updatedAt(r.getUpdateAt())
+                .build();
+    }
+
+
+    public static List<ReviewOfferResponse> toResponses(List<Review> reviews) {
+        return reviews.stream()
+                .map(ReviewConverter::toResponse)
+                .toList();
+    }
+
+    public static ReviewOfferListResponse toListResponse(List<Review> reviews) {
+        return new ReviewOfferListResponse(
+                toResponses(reviews)
+        );
+    }
+
+
+
+    public static ReviewPageRes toPageResponse(Page<Review> page) {
+
+        List<ReviewOfferResponse> reviewDtos =
+                page.getContent().stream()
+                        .map(ReviewConverter::toResponse)
+                        .toList();
+
+        PageInfo pageInfo = new PageInfo(
+                page.getNumber() + 1,
+                page.getSize(),
+                page.getTotalElements(),
+                page.getTotalPages(),
+                page.hasNext(),
+                page.hasPrevious()
+        );
+
+        return new ReviewPageRes(reviewDtos, pageInfo);
     }
 }

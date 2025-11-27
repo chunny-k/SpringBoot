@@ -33,6 +33,15 @@ public interface MissionRepository extends JpaRepository<Mission, Long> {
                                                                     @Param("memberId") Long memberId,
                                                                     @Param("missionStatus")MissionStatus status,
                                                                     Pageable pageable);
+
+    @Query("""
+    select m from Mission m
+    join fetch m.restourant
+    where m.restourant.id = :storeId
+""")
+    Page<Mission> findByRestourant_Id(Long restaurantId, Pageable pageable);
+
+
 }
 
 

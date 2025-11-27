@@ -15,5 +15,11 @@ public class MissionReq {
             Long memberId
     )
     {}
+    public record StoreMission(
+            Long storeId
+    ){}
+    public record GetMemberProgressMission(
+            Long memberId
+    ){}
 
 }
