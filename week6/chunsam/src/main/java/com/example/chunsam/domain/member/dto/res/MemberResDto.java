@@ -2,14 +2,14 @@ package com.example.chunsam.domain.member.dto.res;
 
 import com.example.chunsam.domain.member.enums.Gender;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.Date;
 
 public record MemberResDto(
         Long id,
         String name,
         Gender gender,
-        LocalDateTime birthDate,
+        LocalDate birthDate,
         String address,
         String detailAddress,
         String phone,

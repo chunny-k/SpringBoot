@@ -10,6 +10,7 @@ import com.example.chunsam.domain.review.entity.Review;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
@@ -45,6 +46,12 @@ public class Member {
     @Column(name = "member_id")
     private Long id;
 
+    @Column(name = "userid",nullable = false)
+    private String userId;
+
+    @Column(name = "password",nullable = false)
+    private String password;
+
 
     @Column(name = "name", nullable = false)
     private String name;
@@ -55,12 +62,12 @@ public class Member {
     private Gender gender = Gender.None;
 
     @Column(name = "birthdate",nullable = false)
-    private LocalDateTime birthDate;
+    private LocalDate birthDate;
 
     @Column(name = "adress",nullable = false)
     private String adress;
 
-    @Column(name = "detail_address",nullable = false)
+    @Column(name = "detail_address")
     private String detailAddress;
 
     @Column(name="phone",nullable = false)

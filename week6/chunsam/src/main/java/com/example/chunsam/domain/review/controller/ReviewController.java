@@ -2,14 +2,11 @@ package com.example.chunsam.domain.review.controller;
 
 import com.example.chunsam.domain.review.dto.ReviewOfferListResponse;
 import com.example.chunsam.domain.review.dto.ReviewOfferResponse;
-import com.example.chunsam.domain.review.dto.ReviewUpdateReq;
 import com.example.chunsam.domain.review.dto.req.ReviewCreateReq;
 import com.example.chunsam.domain.review.dto.req.ReviewGetReq;
 import com.example.chunsam.domain.review.dto.res.ReviewCreateRes;
 import com.example.chunsam.domain.review.dto.res.ReviewPageRes;
-import com.example.chunsam.domain.review.entity.Review;
 import com.example.chunsam.domain.review.repo.ReviewQueryService;
-import com.example.chunsam.domain.review.repo.ReviewRepository;
 import com.example.chunsam.domain.review.service.ReviewService;
 import com.example.chunsam.global.anotation.PageUnderOne;
 import com.example.chunsam.global.apiPayload.ApiResponse;

@@ -59,8 +59,6 @@ public class MissionService {
 
         int pageIndex = page - 1;
         PageRequest pageable = PageRequest.of(pageIndex, 10);
-
-
         Page<Mission> missions = missionRepository.findByRestourant_Id(req.storeId(),pageable);
 
 
